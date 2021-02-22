@@ -69,7 +69,7 @@ async function main() {
     while (true) {
         const orderState = getOrderState(api, fileInfo.cid);
         logger.info("Order status: " + JSON.stringify(orderState));
-        delay(10000);
+        await delay(10000);
     }
 }
 
