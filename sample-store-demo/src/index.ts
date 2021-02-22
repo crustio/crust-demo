@@ -3,7 +3,7 @@ import fs from 'fs';
 import IPFS from 'ipfs-core';
 import { ApiPromise, WsProvider } from '@polkadot/api';
 import { typesBundleForPolkadot, crustTypes } from '@crustio/type-definitions';
-import { sendTx, loadKeyringPair } from './utils'
+import { sendTx, loadKeyringPair, delay } from './utils'
 import logger from './log';
 import { KeyringPair } from '@polkadot/keyring/types';
 
@@ -26,8 +26,7 @@ async function main() {
         logger.error("Please give chain url, for example: ws://localhost:9944");
         return
     }
-    else
-    {
+    else {
         logger.info("Chain url is: " + chain_ws_url);
     }
 
@@ -54,11 +53,24 @@ async function main() {
     /*****************************Main logic******************************/
     // Add file into ipfs
     const fileInfo = await addFile(ipfs, fileContent)
-    logger.info("File info: " + fileInfo);
+    logger.info("File info: " + JSON.stringify(fileInfo));
 
     // Add file into ipfs
     const poRes = await placeOrder(api, krp, fileInfo.cid, fileInfo.size, 0)
-    logger.info("Place storage order: " + poRes);
+    if (!poRes) {
+        logger.error("Place storage order failed");
+        return
+    }
+    else {
+        logger.info("Place storage order success");
+    }
+
+    // Check file status on chain
+    while (true) {
+        const orderState = getOrderState(api, fileInfo.cid);
+        logger.info("Order status: " + JSON.stringify(orderState));
+        delay(10000);
+    }
 }
 
 /**
@@ -97,4 +109,9 @@ async function addFile(ipfs: IPFS.IPFS, fileContent: any) {
         cid: cid.path,
         size: fileStat.cumulativeSize
     };
+}
+
+async function getOrderState(api: ApiPromise, cid: string) {
+    await api.isReadyOrError;
+    return await api.query.market.files([cid]);
 }

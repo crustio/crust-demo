@@ -62,3 +62,7 @@ export function loadKeyringPair(seeds: string): KeyringPair {
   const krp = kr.addFromUri(seeds);
   return krp;
 }
+
+export async function delay(ms: number) {
+  return new Promise( resolve => setTimeout(resolve, ms) );
+}
