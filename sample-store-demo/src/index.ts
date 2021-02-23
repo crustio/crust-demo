@@ -67,7 +67,7 @@ async function main() {
 
     // Check file status on chain
     while (true) {
-        const orderState = getOrderState(api, fileInfo.cid);
+        const orderState = await getOrderState(api, fileInfo.cid);
         logger.info("Order status: " + JSON.stringify(orderState));
         await delay(10000);
     }
@@ -113,5 +113,5 @@ async function addFile(ipfs: IPFS.IPFS, fileContent: any) {
 
 async function getOrderState(api: ApiPromise, cid: string) {
     await api.isReadyOrError;
-    return await api.query.market.files([cid]);
+    return await api.query.market.files(cid);
 }
