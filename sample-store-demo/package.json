@@ -9,7 +9,7 @@
     "build": "tsc -p ./"
   },
   "dependencies": {
-    "@crustio/type-definitions": "^0.0.3",
+    "@crustio/type-definitions": "^0.0.5",
     "@polkadot/api": "^3.9.3",
     "ipfs-core": "^0.5.2",
     "nodemon": "^2.0.7",
