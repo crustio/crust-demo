@@ -48,10 +48,12 @@ async function main() {
     const ipfs = await IPFS.create();
 
     // Connect to chain
-    const api = new ApiPromise({
+    let api = new ApiPromise({
         provider: new WsProvider(chain_ws_url),
         typesBundle: typesBundleForPolkadot,
     });
+
+    api = await api.isReady;
 
     // Load on-chain identity
     const krp = loadKeyringPair(seeds);
@@ -101,7 +103,7 @@ async function placeOrder(api: ApiPromise, krp: KeyringPair, fileCID: string, fi
     // Determine whether to connect to the chain
     await api.isReadyOrError;
     // Generate transaction
-    const pso = api.tx.market.placeStorageOrder(fileCID, fileSize, tip, false);
+    const pso = api.tx.market.placeStorageOrder(fileCID, fileSize, tip);
     // Send transaction
     const txRes = JSON.parse(JSON.stringify((await sendTx(krp, pso))));
     return JSON.parse(JSON.stringify(txRes));
