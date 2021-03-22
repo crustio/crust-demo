@@ -11,7 +11,7 @@ yarn build
 ## Run
 ```shell
 # ${seeds} example: "echo xxxx soccer xxxx catch xxxx stone xxxx pumpkin nest merge xxxx"
-# ${chian_ws} example: "ws://127.0.0.1:9933"
+# ${chain_ws} example: "ws://127.0.0.1:9933"
 # ${file_path} example: "test.txt"
-yarn start ${seeds} ${chian_ws} ${file_path}
+yarn start ${seeds} ${chain_ws} ${file_path}
 ```
