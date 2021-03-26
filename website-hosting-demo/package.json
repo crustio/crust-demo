@@ -1,0 +1,10 @@
+{
+  "name": "site-deployer",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@crustio/crust-pin": "^0.0.1",
+    "ipfs-http-client": "^49.0.2"
+  }
+}
