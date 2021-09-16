@@ -1,5 +1,5 @@
 {
-  "name": "sample-store-demo",
+  "name": "store-file-with-ipfs",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
@@ -9,8 +9,8 @@
     "build": "tsc -p ./"
   },
   "dependencies": {
-    "@crustio/type-definitions": "^0.0.5",
-    "@polkadot/api": "^3.9.3",
+    "@crustio/type-definitions": "^1.2.0",
+    "@polkadot/api": "4.2.2-4",
     "ipfs-core": "^0.5.2",
     "nodemon": "^2.0.7",
     "ts-node": "^9.1.1",

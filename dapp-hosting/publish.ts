@@ -14,7 +14,7 @@ async function pin(path: string): Promise<string> {
     // 2. Pin it
     const { cid } = await ipfs.add(globSource(path, { recursive: true }));
 
-    return cid;
+    return cid.toString();
 }
 
 /**

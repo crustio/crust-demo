@@ -1,0 +1,11 @@
+{
+  "name": "store-file-with-gateway",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@polkadot/keyring": "^7.3.1",
+    "got": "^11.8.2",
+    "ipfs-http-client": "^52.0.3"
+  }
+}

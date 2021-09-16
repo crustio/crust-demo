@@ -103,7 +103,7 @@ async function placeOrder(api: ApiPromise, krp: KeyringPair, fileCID: string, fi
     // Determine whether to connect to the chain
     await api.isReadyOrError;
     // Generate transaction
-    const pso = api.tx.market.placeStorageOrder(fileCID, fileSize, tip);
+    const pso = api.tx.market.placeStorageOrder(fileCID, fileSize, tip, ''); // last arg is `_memo`, which is used to tag your file
     // Send transaction
     const txRes = JSON.parse(JSON.stringify((await sendTx(krp, pso))));
     return JSON.parse(JSON.stringify(txRes));

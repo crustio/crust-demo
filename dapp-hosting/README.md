@@ -1,6 +1,4 @@
-# Website hosting nodejs package
-
-Website hosting sample for using nodejs package
+# DApp Hosting
 
 ## Install
 
