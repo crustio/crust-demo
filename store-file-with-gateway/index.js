@@ -29,7 +29,7 @@ async function main() {
         }
     });
 
-    const { cid } = await ipfs.add(globSource(path, { recursive: true }));
+    const { cid } = await ipfs.add(globSource(path, '**/*'));
 
     if (cid) {
         console.log(cid.toV0().toString());
