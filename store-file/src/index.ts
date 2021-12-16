@@ -8,7 +8,7 @@ import { Keyring } from '@polkadot/keyring';
 
 const crustChainEndpoint = 'wss://rpc.crust.network'; // More endpoints: https://github.com/crustio/crust-apps/blob/master/packages/apps-config/src/endpoints/production.ts#L9
 const ipfsW3GW = 'https://crustipfs.xyz'; // More web3 authed gateways: https://github.com/crustio/ipfsscan/blob/main/lib/constans.ts#L29
-const crustSeeds = 'sleep argue dinosaur flat door short advice purity crawl trim tag curious'; // Create account(seeds): https://wiki.crust.network/docs/en/crustAccount
+const crustSeeds = 'xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx'; // Create account(seeds): https://wiki.crust.network/docs/en/crustAccount
 const api = new ApiPromise({
     provider: new WsProvider(crustChainEndpoint),
     typesBundle: typesBundleForPolkadot,
