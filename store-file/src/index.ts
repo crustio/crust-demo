@@ -8,7 +8,7 @@ import { Keyring } from '@polkadot/keyring';
 
 const crustChainEndpoint = 'wss://rpc.crust.network'; // More endpoints: https://github.com/crustio/crust-apps/blob/master/packages/apps-config/src/endpoints/production.ts#L9
 const ipfsW3GW = 'https://crustipfs.xyz'; // More web3 authed gateways: https://github.com/crustio/ipfsscan/blob/main/lib/constans.ts#L29
-const crustSeeds = 'xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx'; // Create account(seeds): https://wiki.crust.network/docs/en/crustAccount
+const crustSeeds = 'sleep argue dinosaur flat door short advice purity crawl trim tag curious'; // Create account(seeds): https://wiki.crust.network/docs/en/crustAccount
 const api = new ApiPromise({
     provider: new WsProvider(crustChainEndpoint),
     typesBundle: typesBundleForPolkadot,
@@ -45,8 +45,12 @@ async function main() {
 
     // II. Place storage order
     await placeStorageOrder(rst.cid, rst.size);
+    // III. [OPTIONAL] Add prepaid
+    // Learn what's prepard for: https://wiki.crust.network/docs/en/DSM#3-file-order-assurance-settlement-and-discount
+    const addedAmount = 100; // in pCRU, 1 pCRU = 10^-12 CRU
+    await addPrepaid(rst.cid, addedAmount);
 
-    // III. Query storage status
+    // IV. Query storage status
     // Query forever here ...
     while (true) {
         const orderStatus: any = (await getOrderState(rst.cid)).toJSON();
@@ -80,19 +84,53 @@ async function placeStorageOrder(fileCid: string, fileSize: number) {
 
     // 3. Send transaction
     await api.isReadyOrError;
-    const unsub = await tx.signAndSend(krp, ({events = [], status}) => {
-        console.log(`💸  Tx status: ${status.type}, nonce: ${tx.nonce}`);
+    return new Promise((resolve, reject) => {
+        tx.signAndSend(krp, ({events = [], status}) => {
+            console.log(`💸  Tx status: ${status.type}, nonce: ${tx.nonce}`);
 
-        if (status.isInBlock) {
-            events.forEach(({event: {method, section}}) => {
-                if (method === 'ExtrinsicSuccess') {
-                    console.log(`✅  Place storage order success!`);
-                    unsub();
-                }
-            });
-        } else {
-            // Pass it
-        }
+            if (status.isInBlock) {
+                events.forEach(({event: {method, section}}) => {
+                    if (method === 'ExtrinsicSuccess') {
+                        console.log(`✅  Place storage order success!`);
+                        resolve(true);
+                    }
+                });
+            } else {
+                // Pass it
+            }
+        }).catch(e => {
+            reject(e);
+        })
+    });
+}
+
+async function addPrepaid(fileCid: string, amount: number) {
+    // 1. Construct add-prepaid tx
+    const tx = api.tx.market.addPrepaid(fileCid, amount);
+
+    // 2. Load seeds(account)
+    const kr = new Keyring({ type: 'sr25519' });
+    const krp = kr.addFromUri(crustSeeds);
+
+    // 3. Send transaction
+    await api.isReadyOrError;
+    return new Promise((resolve, reject) => {
+        tx.signAndSend(krp, ({events = [], status}) => {
+            console.log(`💸  Tx status: ${status.type}, nonce: ${tx.nonce}`);
+
+            if (status.isInBlock) {
+                events.forEach(({event: {method, section}}) => {
+                    if (method === 'ExtrinsicSuccess') {
+                        console.log(`✅  Add prepaid success!`);
+                        resolve(true);
+                    }
+                });
+            } else {
+                // Pass it
+            }
+        }).catch(e => {
+            reject(e);
+        })
     });
 }
 
