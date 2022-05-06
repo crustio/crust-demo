@@ -136,5 +136,5 @@ async function addPrepaid(fileCid: string, amount: number) {
 
 async function getOrderState(cid: string) {
     await api.isReadyOrError;
-    return await api.query.market.files(cid);
+    return await api.query.market.filesV2(cid);
 }
