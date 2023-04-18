@@ -6,7 +6,7 @@ Very basic demos on `node.js`, make devs easily to gettinng start on Crust, more
 
 - [dapp-hosting](./dapp-hosting): Learn how to use crust and local ipfs hosting your DApp frontend
 - [store-file](./store-file): Learn how to store file with native Crust Network
-- [store-file-with-pinner](./store-file-with-pinner): Learn how to stroe file without ipfs, using [IPFS W3Auth Gateway](https://github.com/crustio/ipfs-w3auth-gateway) and [IPFS W3Auth Pinning Service](https://github.com/crustio/ipfs-w3auth-pinning-service)
+- [store-file-with-pinner](./store-file-with-pinner): Learn how to store file without ipfs, using [IPFS W3Auth Gateway](https://github.com/crustio/ipfs-w3auth-gateway) and [IPFS W3Auth Pinning Service](https://github.com/crustio/ipfs-w3auth-pinning-service)
 
 ## Contribution
 
