@@ -20,7 +20,7 @@ async function main() {
     const storeContract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
 
     console.log("Get the file storage fee");
-    const price = await storeContract.getPrice(fileSize, false);
+    const price = await storeContract.getPrice(fileSize, isPermanentStorage);
     console.log("Fee: " + price + " wei");
 
     console.log("Place storge order");
