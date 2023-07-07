@@ -24,7 +24,7 @@ async function main() {
     console.log("Fee: " + price + " wei");
 
     console.log("Place storge order");
-    const tx = await storeContract.placeOrder(fileCid, fileSize, false, { value: price });
+    const tx = await storeContract.placeOrder(fileCid, fileSize, isPermanentStorage, { value: price });
     await tx.wait();
     console.log("Done this");
 }
